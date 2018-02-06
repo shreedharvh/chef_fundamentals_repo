@@ -1,0 +1,22 @@
+---
+driver:
+  name: vagrant
+  require_chef_omnibus: 12.12.15
+
+provisioner:
+  name: chef_zero
+
+platforms:
+ - name: rhel65-1.0.0
+   driver_config:
+      box: rhel65-1.0.0
+      box_url: http://repo.release.cerner.corp/nexus/content/repositories/vagrant/com/cerner/vagrant/rhel65/1.0.0/rhel65-1.0.0.box
+      network:
+       - ['forwarded_port', {guest: 80, host: 18087}]
+       - ['private_network', {ip: '192.168.200.10'}]
+suites:
+  - name: default
+    run_list:
+      - recipe[httpd::default]
+    attributes:
+
